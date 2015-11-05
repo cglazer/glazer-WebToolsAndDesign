@@ -1,0 +1,138 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			body {
+				padding: 20px;
+			}
+
+			.error {
+				color: red;
+			}
+
+			button {
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+	<body class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Array</h3>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-md-12 form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-md-2">Enter in number:</label>
+						<div class="col-md-5">
+							<input type="text" id="userInput" class="form-control" />
+						</div>
+						<span id="errorMsg"></span>
+					</div>
+
+				</div>
+				<div class="form-group col-md-offset-2 col-md-2">
+					<button type="button" class="btn btn-success" id="addBtn">
+						<i class="glyphicon glyphicon-plus-sign"></i> Add to Array
+					</button>
+					<br/>
+					<button type="button" class="btn btn-danger" id="deleteBtn">
+						<i class="glyphicon glyphicon-remove-sign"></i> Delete from Array
+					</button>
+					<br/>
+					<button type="button" class="btn btn-info" id="sumBtn">
+						Sum of Array
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var $ = function(id) {
+				return document.getElementById(id);
+			}
+			array = [];
+			//create a global array
+
+			var addToArray = function() {
+				//add the number to the array
+				userInput = parseFloat($("userInput").value);
+				array[array.length] = userInput;
+				alert(userInput + " was added to the array.");
+				//notify the user
+				clear();
+			}
+			var deleteFromArray = function() {
+				//delete the number from the array
+				userInput = parseFloat($("userInput").value);
+				for (var i in array) {
+					if (userInput == array[i]) {
+						delete array[i];
+						break;
+					}
+				}
+				alert(userInput + " was deleted from the array.");
+				clear();
+				//notify the user
+			}
+			var sumOfArray = function() {
+				//add the values of the array and display them in sorted order
+				array.sort();
+				var sum = 0;
+				var stringArray = "";
+				for (var i in array) {
+					sum += array[i];
+					if (i == 0) {
+						stringArray = array[0];
+					} else {
+						stringArray += (" + " + array[i]);
+					}
+				}
+				alert(stringArray + "= " + sum);
+			}
+			var clear = function() {
+				//clear the text box, and arrange the cursor
+				$("userInput").value = "";
+				$("userInput").focus();
+			}
+			function myFunction() {
+				//only show the appropriate buttons, based on the user's input
+				userInput = parseFloat($("userInput").value);
+				if (isNaN(userInput)) {
+					$("errorMsg").innerHTML = "Input not valid";
+					$('addBtn').style.visibility = 'hidden';
+					$('deleteBtn').style.visibility = 'hidden';
+				} else {
+					$("errorMsg").innerHTML = "";
+					var inArray = false;
+					for (var i in array) {
+						if (userInput == array[i]) {
+							inArray = true;
+						}
+					}
+					if (inArray) {
+						$('addBtn').style.visibility = 'hidden';
+						$('deleteBtn').style.visibility = 'visible';
+					} else {
+						$('deleteBtn').style.visibility = 'hidden';
+						$('addBtn').style.visibility = 'visible';
+					}
+				}
+			}
+
+
+			window.onload = function() {
+				$("addBtn").onclick = addToArray;
+				$("deleteBtn").onclick = deleteFromArray;
+				$("sumBtn").onclick = sumOfArray;
+				$("userInput").focus();
+				$("userInput").ondblclick = clear;
+				$("userInput").oninput = function() {
+					myFunction()
+				};
+			}
+		</script>
+	</body>
+</html>

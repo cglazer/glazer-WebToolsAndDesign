@@ -1,0 +1,118 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script>
+			var $ = function(id) {
+				return document.getElementById(id);
+			}
+			var calculateRGB = function() {
+				var red = parseInt($("red").value);
+				var green = parseInt($("green").value);
+				var blue = parseInt($("blue").value);
+				if (red < 0 || red > 255) {
+					alert("Red must be a value between 0 and 255");
+				} else if (isNaN(red)) {
+					alert("Red must be numeric");
+				} else if (green < 0 || green > 255) {
+					alert("Green must be a value between 0 and 255");
+				} else if (isNaN(green)) {
+					alert("Green must be numeric");
+				} else if (blue < 0 || blue > 255) {
+					alert("Blue must be a value between 0 and 255");
+				} else if (isNaN(blue)) {
+					alert("Blue must be numeric");
+				} else {
+					var rgb = red.toString(16)+ green.toString(16)+ blue.toString(16);
+					changeBackground("#" + rgb);
+				}
+				function changeBackground(rgbColor){
+					$("rgbResult").style.background = rgbColor;
+				}
+			}
+			var clear = function() {
+				this.value = " ";
+			}
+			window.onload = function() {
+				$("red").ondblclick = clear;
+				$("green").ondblclick = clear;
+				$("blue").ondblclick = clear;
+				$("calculateRgb").onclick = calculateRGB;
+				$("red").focus();
+			}
+		</script>
+		<style>
+			body {
+				background-color: rgbColor;
+				padding: 20px;
+			}
+
+			.red, #red {
+				color: red;
+			}
+
+			.green, #green {
+				color: green;
+			}
+
+			.blue, #blue {
+				color: blue;
+			}
+
+			button {
+				margin-top: 5px;
+			}
+
+			#rgbResult {
+				height: 100px;
+				width: 100px;
+				border: 1px solid black;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">RGB Color Maker</h3>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-md-7 form-horizontal">
+					<div class="form-group">
+						<label for="red" class="control-label red col-md-2">Red:</label>
+						<div class="col-md-2">
+							<input type="text" id="red" class="form-control"/>
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label for="green" class="control-label green col-md-2">Green:</label>
+						<div class="col-md-2">
+							<input type="text" id="green" class="form-control"/>
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label for="blue" class="control-label blue col-md-2">Blue:</label>
+						<div class="col-md-2">
+							<input type="text" id="blue" class="form-control"/>
+						</div>
+
+					</div>
+					<button class="btn btn-info col-md-offset-2" id="calculateRgb">
+						Calculate RGB
+					</button>
+				</div>
+				<div class="col-md-2">
+					<h3>RGB Result :<span id="rgbColor"> </span></h3>
+					<div id="rgbResult">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
